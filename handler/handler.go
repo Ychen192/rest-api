@@ -10,13 +10,13 @@ import (
 
 var dao = CompaniesDAO{}
 
-func AllCompaniesEndPoint(w http.ResponseWriter, r *http.Request) {
-	movies, err := dao.FindAll()
+func AllCompaniesEndPoint(w http.ResponseWriter) {
+	companies, err := dao.FindAll()
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	respondWithJson(w, http.StatusOK, movies)
+	respondWithJson(w, http.StatusOK, companies)
 }
 
 // POST a new movie

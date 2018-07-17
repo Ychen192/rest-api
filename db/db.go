@@ -2,7 +2,6 @@ package db
 
 import (
 	"log"
-
 	"gopkg.in/mgo.v2"
 	"rest-api/model"
 	"gopkg.in/mgo.v2/bson"
