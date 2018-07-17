@@ -10,7 +10,7 @@ import (
 
 var dao = CompaniesDAO{}
 
-func AllCompaniesEndPoint(w http.ResponseWriter) {
+func AllCompaniesEndPoint(w http.ResponseWriter, r* http.Request) {
 	companies, err := dao.FindAll()
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
@@ -19,8 +19,8 @@ func AllCompaniesEndPoint(w http.ResponseWriter) {
 	respondWithJson(w, http.StatusOK, companies)
 }
 
-// POST a new movie
-func CreateMovieEndPoint(w http.ResponseWriter, r *http.Request) {
+// POST a new Company
+func CreateCompanyEndPoint(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	var company Company
 	if err := json.NewDecoder(r.Body).Decode(&company); err != nil {

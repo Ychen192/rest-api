@@ -25,7 +25,7 @@ func main() {
 	sub := router.PathPrefix("/api/v1").Subrouter()
 
 	sub.HandleFunc("/companies", AllCompaniesEndPoint).Methods("GET")
-	sub.HandleFunc("/companies", CreateMovieEndPoint).Methods("POST")
+	sub.HandleFunc("/companies", CreateCompanyEndPoint).Methods("POST")
 	sub.HandleFunc("/companies", UpdateCompanyEndpoint).Methods("PUT")
 	sub.HandleFunc("/companies", DeleteCompanyEndpoint).Methods("DELETE")
 	sub.HandleFunc("/companies/{name}", FindCompanyEndpoint).Methods("GET")

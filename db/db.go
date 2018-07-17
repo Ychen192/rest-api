@@ -27,9 +27,9 @@ func (m *CompaniesDAO) Connect() {
 }
 
 func (m *CompaniesDAO) FindAll() ([]model.Company, error) {
-	var movies []model.Company
-	err := db.C(COLLECTION).Find(bson.M{}).All(&movies)
-	return movies, err
+	var companies []model.Company
+	err := db.C(COLLECTION).Find(bson.M{}).All(&companies)
+	return companies, err
 }
 
 func (m *CompaniesDAO) Insert(company model.Company) error {
