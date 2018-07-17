@@ -52,7 +52,7 @@ func DeleteCompanyEndpoint(w http.ResponseWriter, r *http.Request) {
 
 	var company Company
 
-	if err := json.NewDecoder(r.Body).Decode(company); err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&company); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid request paylaod")
 		return
 	}

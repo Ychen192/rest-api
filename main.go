@@ -30,7 +30,7 @@ func main() {
 	sub.HandleFunc("/companies", DeleteCompanyEndpoint).Methods("DELETE")
 	sub.HandleFunc("/companies/{name}", FindCompanyEndpoint).Methods("GET")
 
-	if err := http.ListenAndServe(":3000", sub); err != nil {
+	if err := http.ListenAndServe(":3001", sub); err != nil {
 		log.Fatal(err)
 	}
 }
