@@ -1,36 +1,39 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
-	. "rest-api/config"
-	. "rest-api/handler"
-	. "rest-api/db"
 	"log"
-	"net/http"
+	. "github.com/aerospike/aerospike-client-go"
 )
 
-var config = Config{}
-var dao = CompaniesDAO{}
-
-func init() {
-	config.Read()
-
-	dao.Server = config.Server
-	dao.Database = config.Database
-	dao.Connect()
-}
-
 func main() {
-	router := mux.NewRouter().StrictSlash(true)
-	sub := router.PathPrefix("/api/v1").Subrouter()
 
-	sub.HandleFunc("/companies", AllCompaniesEndPoint).Methods("GET")
-	sub.HandleFunc("/companies", CreateCompanyEndPoint).Methods("POST")
-	sub.HandleFunc("/companies", UpdateCompanyEndpoint).Methods("PUT")
-	sub.HandleFunc("/companies", DeleteCompanyEndpoint).Methods("DELETE")
-	sub.HandleFunc("/companies/{name}", FindCompanyEndpoint).Methods("GET")
-
-	if err := http.ListenAndServe(":3001", sub); err != nil {
+	client, err := NewClient("172.28.128.3", 3000)
+	if err != nil {
 		log.Fatal(err)
 	}
+
+	key, err := NewKey("test", "demo",
+		"")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	bin1 := NewBin("bin1", "value1")
+	bin2 := NewBin("bin2", "value2")
+
+	// Write a record
+	err = client.PutBins(nil, key, bin1, bin2)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Read a record
+	record, err := client.Get(nil, key)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	println(record)
+
+	client.Close()
 }
