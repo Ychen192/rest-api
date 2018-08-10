@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	client, err := NewClient("172.28.128.3", 3000)
+	client, err := NewClient("localhost", 3000)
 	if err != nil {
 		log.Fatal(err)
 	}
